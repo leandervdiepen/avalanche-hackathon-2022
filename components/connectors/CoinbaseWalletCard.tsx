@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 import { coinbaseWallet, hooks } from "../../connectors/coinbase";
 import { Accounts } from "../Accounts";
 import { Card } from "../Card";
@@ -27,10 +28,19 @@ export default function CoinbaseWalletCard() {
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
+  const router = useRouter();
+
   // attempt to connect eagerly on mount
   useEffect(() => {
     void coinbaseWallet.connectEagerly();
   }, []);
+
+  // redirect to user profile if connected
+  useEffect(() => {
+    if (isActive) {
+      router.push("/swapandtransfer");
+    }
+  });
 
   return (
     <Card>

@@ -1,14 +1,16 @@
 import styles from "../styles/Layout.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { hooks } from "../connectors/coinbase";
 
+const { useIsActive } = hooks;
 export default function Layout({ children }) {
   const [open, setOpen] = useState(false);
   const openMenu = () => {
     setOpen(!open);
   };
-  const [walletConnected, setWalletConnected] = useState(false);
+  const isActive = useIsActive();
   return (
     <>
       <header className={styles.header}>
@@ -28,25 +30,51 @@ export default function Layout({ children }) {
                 : styles.navmenu + " " + styles.active
             }
           >
-            <li className={styles.navitem}>
-              <Link href="/connect" className={styles.navlink}>
-                Connect Wallet
-              </Link>
-            </li>
-            {walletConnected && (
+            {!isActive && (
               <li className={styles.navitem}>
-                <Link
-                  className="text-xl font-normal my-4"
-                  href="/create"
-                  onClick={() =>
-                    setTimeout(() => {
-                      setOpen(!open);
-                    }, 100)
-                  }
-                >
-                  Create
+                <Link href="/connect" className={styles.navlink}>
+                  Connect Wallet
                 </Link>
               </li>
+            )}
+            {isActive && (
+              <span className="flex flex-row">
+                <li className={styles.navitem}>
+                  <Link
+                    className="text-xl font-normal my-4"
+                    href="/create"
+                    onClick={() =>
+                      setTimeout(() => {
+                        setOpen(!open);
+                      }, 100)
+                    }
+                  >
+                    Create
+                  </Link>
+                </li>
+                <li className={styles.navitem}>
+                  <Link
+                    className="text-xl font-normal my-4"
+                    href="/swapandtransfer"
+                    onClick={() =>
+                      setTimeout(() => {
+                        setOpen(!open);
+                      }, 100)
+                    }
+                  >
+                    Transfer
+                  </Link>
+                </li>
+                <li>
+                  <button onClick={() => void connector.deactivate()}>
+                    <Image
+                      src={"/../styles/icons/logout.svg"}
+                      width={50}
+                      height={50}
+                    />
+                  </button>
+                </li>
+              </span>
             )}
           </ul>
           <button

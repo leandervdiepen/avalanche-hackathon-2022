@@ -7,14 +7,9 @@ import { useState } from "react";
 import Provider from "../../components/Provider";
 
 function connect() {
-  const [walletConnected, setWalletConnected] = useState(false);
   return (
     <div>
       <Provider />
-      {/* <ConnectWallet
-        walletConnected={walletConnected}
-        setWalletConnected={setWalletConnected}
-      /> */}
       <div className="container mx-auto flex flex-row grid grid-cols-2">
       <CoinbaseWalletCard />
       <MetamaskCard />
