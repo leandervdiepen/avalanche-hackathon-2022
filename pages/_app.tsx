@@ -1,13 +1,14 @@
 import "../styles/globals.css";
 import "../styles/components.css";
-import Navbar from "../components/Navigation";
+import Layout from "../components/Layout";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
-      <Navbar />
+    // <Web3ReactProvider getLibrary={getLibrary}>
+    <Layout>
       <Component {...pageProps} />
-    </>
+    </Layout>
+    // </Web3ReactProvider>
   );
 }
 
