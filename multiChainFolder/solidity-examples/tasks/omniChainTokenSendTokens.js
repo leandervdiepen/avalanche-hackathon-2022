@@ -25,9 +25,10 @@ module.exports = async function (taskArgs, hre) {
         dstChainId,
         dstAddr,
         qty,
-        {value: ethers.utils.parseEther('1')} // estimate/guess
+        {value: ethers.utils.parseEther('0.07')} // estimate/guess
     )).wait()
     console.log(`✅ Message Sent [${hre.network.name}] sendTokens() to OmniChainToken @ [${dstChainId}] token:[${dstAddr}]`)
     console.log(` tx: ${tx.transactionHash}`)
     console.log(`* check your address [${owner.address}] on the destination chain, in the ERC20 transaction tab !"`)
+
 }

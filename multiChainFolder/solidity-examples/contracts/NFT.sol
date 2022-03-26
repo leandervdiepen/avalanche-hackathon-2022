@@ -15,6 +15,8 @@ contract NFT is ERC721URIStorage, ILayerZeroReceiver, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
     address contractAddress;
+    mapping(uint256 => bool) public tokenExists;
+    mapping(uint256 => bool) public isTokenIdLocked;
 
     /*constructor(address marketPlaceAddress)
         ERC721("Concepts and Solutions Token", "CAST")
@@ -22,11 +24,21 @@ contract NFT is ERC721URIStorage, ILayerZeroReceiver, Ownable {
         contractAddress = marketPlaceAddress;
     }*/
 
+
+    function setLocked(uint256 _tokenId, bool _locked) public {
+        isTokenIdLocked[_tokenId] = _locked;
+    }
+
+    function getLocked(uint256 _tokenId) public returns (bool){
+        return isTokenIdLocked[_tokenId];
+    }
+
     // constructor mints tokens to the deployer
     constructor(string memory name_, string memory symbol_, address _layerZeroEndpoint, address marketPlaceAddress) ERC721("Concep", "CAST"){
         endpoint = ILayerZeroEndpoint(_layerZeroEndpoint);
         contractAddress = marketPlaceAddress;
         //createToken("https://gateway.pinata.cloud/ipfs/QmZXsHdE13ruPqz3myrrSdnUZuMYtWmWr4DmRkuCT9jLAQ/");
+        //
     }
 
     function createToken(string memory tokenURI) public returns (uint256) {
@@ -57,6 +69,8 @@ contract NFT is ERC721URIStorage, ILayerZeroReceiver, Ownable {
 
         // and burn the local tokens *poof*
         _burn(_tokenId);
+        //transferFrom(msg.sender, address(this), _tokenId);
+        //setLocked(_tokenId,true);
 
         // abi.encode() the payload with the values to send
         //bytes memory payload = abi.encode(address(0x6b1e0D61eb90e529b198D69952C9e2F775101C74), uint256(2));
@@ -97,6 +111,12 @@ contract NFT is ERC721URIStorage, ILayerZeroReceiver, Ownable {
         (address toAddr, uint256 _tokenId) = abi.decode(_payload, (address, uint256));
 
         // mint the tokens back into existence, to the toAddr from the message payload
-        _mint(toAddr, _tokenId);
+        //if(!tokenExists[_tokenId]){
+            _mint(toAddr, _tokenId);
+        //    tokenExists[_tokenId] = true;
+        //}else{
+        //    transferFrom(address(this), toAddr, _tokenId);
+        //}
+        //setLocked(_tokenId,false);    
     }
 }

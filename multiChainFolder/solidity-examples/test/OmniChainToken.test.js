@@ -35,23 +35,43 @@ describe("OmniChainToken", function () {
         let b = await this.omniChainTokenB.balanceOf(this.owner.address);
         expect(a).to.be.equal(this.startingTokens);
         expect(b).to.be.equal(this.startingTokens);
-        console.log(a);
-        console.log(b);
+        console.log(a.toString());
+        console.log(b.toString());
 
         //approve and send tokens
         //let sendQty = ethers.utils.parseUnits("100", 18)
         await this.omniChainTokenA.createToken("https://gateway.pinata.cloud/ipfs/QmZXsHdE13ruPqz3myrrSdnUZuMYtWmWr4DmRkuCT9jLAQ/");
         let sendQty = 1;
         await this.omniChainTokenA.approve(this.omniChainTokenA.address, sendQty);
+        await this.omniChainTokenA.approve(this.omniChainTokenB.address, sendQty);
+        const ownerBefore = await this.omniChainTokenA.ownerOf(sendQty);
+        console.log("ownerBefore",ownerBefore.toString());
+        console.log("ownerBefore");
         await this.omniChainTokenA.sendTokens(this.chainId, this.omniChainTokenB.address, sendQty)
+
+        const own = await this.omniChainTokenB.ownerOf(sendQty);
+        console.log(this.omniChainTokenA.address);
+        console.log(this.omniChainTokenB.address);
+        console.log(this.accounts[0].address);
+        console.log(own.toString());
 
         //verify tokens burned on chain a and minted on chain b
         a = await this.omniChainTokenA.balanceOf(this.owner.address);
         b = await this.omniChainTokenB.balanceOf(this.owner.address);
-        console.log(a);
-        console.log(b);
+        console.log(a.toString());
+        console.log(b.toString());
         expect(a).to.be.equal(0);
         expect(b).to.be.equal(1);
+
+        this.accounts[0].approve(this.omniChainTokenB.address,sendQty);
+        this.accounts[0].approve(this.omniChainTokenA.address,sendQty);
+        await this.omniChainTokenB.approve(this.omniChainTokenB.address, sendQty);
+        await this.omniChainTokenB.approve(this.omniChainTokenA.address, sendQty);
+        await this.omniChainTokenB.sendTokens(this.chainId, this.omniChainTokenA.address, sendQty)
+        console.log(a);
+        console.log(b);
+        expect(a).to.be.equal(1);
+        expect(b).to.be.equal(0);
     });
 });
 
