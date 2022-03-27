@@ -3,14 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { hooks } from "../connectors/coinbase";
+import {hooks as metamaskHooks} from "../connectors/metamask";
 
-const { useIsActive } = hooks;
+// const { useIsActive } = hooks;
+const { useIsActive } = metamaskHooks;
 export default function Layout({ children }) {
   const [open, setOpen] = useState(false);
   const openMenu = () => {
     setOpen(!open);
   };
-  const isActive = useIsActive();
+  // const isActiveCoinbase = useIsActive();
+  const isActive = useIsActive()
   return (
     <>
       <header className={styles.header}>
@@ -42,7 +45,7 @@ export default function Layout({ children }) {
                 <li className={styles.navitem}>
                   <Link
                     className="text-xl font-normal my-4"
-                    href="/create"
+                    href="/swapandtransfer"
                     onClick={() =>
                       setTimeout(() => {
                         setOpen(!open);

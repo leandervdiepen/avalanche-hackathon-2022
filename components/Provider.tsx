@@ -42,9 +42,9 @@ const connectors: [
 ];
 export default function Provider() {
   console.log(connectors);
-  return (<></>
-    // <Web3ReactProvider >
-    //   <Child />
-    // </Web3ReactProvider>
+  return (
+    <Web3ReactProvider connectors={connectors} >
+      <Child />
+    </Web3ReactProvider>
   );
 }

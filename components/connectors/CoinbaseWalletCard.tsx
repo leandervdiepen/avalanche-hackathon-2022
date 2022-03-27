@@ -6,6 +6,8 @@ import { Card } from "../Card";
 import { Chain } from "../Chain";
 import { ConnectWithSelect } from "../ConnectWith";
 import { Status } from "../Status";
+import { useMoralis } from "react-moralis";
+import ethers from "ethers"
 
 const {
   useChainId,
