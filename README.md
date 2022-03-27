@@ -1,34 +1,12 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### Hello
 
-## Getting Started
+As you can see this project is in shambles.
 
-First, run the development server:
+The idea was to create a cross-chain bridge for NFTs, built on top of Layer Zero. The final idea would be an interface where the user connects their wallet to the website, is able to view their NFTs, select one of them and select a destination chain for the bridge.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+An example of a use case could be sending a gaming NFT from one chain to another to reach a new realm (hum hum DeFi Kingdom).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To do so, we modified the code given on [https://github.com/LayerZero-Labs/solidity-examples for the OmniChainToken].
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+We did manage to send an ERC721 from Fuji to Rinkeby (and the other way around) through Layer Zero, but only from the command line.
+When we attempted to implement a UI to use those functionalities all hell broke loose and everything broke. 
